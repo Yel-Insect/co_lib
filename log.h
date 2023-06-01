@@ -38,9 +38,11 @@
 #define SYLAR_LOG_FMT_FATAL(logger, fmt, ...) SYLAR_LOG_FMT_LEVEL(logger, sylar::LogLevel::FATAL, fmt, __VA_ARGS__)
 
 #define SYLAR_LOG_ROOT() sylar::LoggerMgr::GetInstance()->getRoot()
-
+#define SYLAR_LOG_NAME(name) sylar::LoggerMgr::GetInstance()->getLogger(name)
 
 namespace sylar{
+class LoggerManager;
+class Logger;
 
 // 日志级别
 class LogLevel {
@@ -57,7 +59,7 @@ public:
 	static const char* ToString(LogLevel::Level level);
 };
 
-class Logger;
+
 //日志事件
 class LogEvent{
 public:
@@ -117,9 +119,12 @@ public:
 		virtual ~FormatItem() {}
 		virtual void format(std::ostream& os, std::shared_ptr<Logger> logger, LogLevel::Level level, LogEvent::ptr event) = 0;
 	};
+
+	bool isError() const { return m_error; }
 private:
 	std::string m_pattern;
 	std::vector<FormatItem::ptr> m_items;
+	bool m_error = false;
 };
 
 //日志输出地
@@ -139,6 +144,7 @@ protected:
 
 //日志器
 class Logger : public std::enable_shared_from_this<Logger> {
+friend class LoggerManager;
 public:
 	typedef std::shared_ptr<Logger> ptr;
 	Logger(const std::string& name = "root");
@@ -152,15 +158,21 @@ public:
 	
 	void addAppender(LogAppender::ptr appender);
 	void delAppender(LogAppender::ptr appender);
+	void clearaAppender();
 	LogLevel::Level getLevel() const { return m_level; }
 	void setLevel(LogLevel::Level val) { m_level = val; }
 	
 	const std::string getName() const { return m_name; }
+
+	void setFormatter(LogFormatter::ptr val);
+	void setFormatter(std::string& val);
+	LogFormatter::ptr getFormatter();
 private:
 	std::string m_name;			//日志名称
 	LogLevel::Level m_level;		//日志等级
 	std::list<LogAppender::ptr> m_appenders; 	//Appender集合
 	LogFormatter::ptr m_formatter;
+	Logger::ptr m_root;
 };
 
 //输出到控制台的Appender

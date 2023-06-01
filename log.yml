@@ -30,3 +30,18 @@ system:
         k: 1
         k2: 1
         k3: 2
+
+class:
+    person:
+        name: hcz
+        age: 21
+        sex: 1
+    map: 
+        yzt:
+            name: yzt
+            age: 1
+            sex: 0
+        qzq:
+            name: qzq
+            age: 2
+            sex: 1

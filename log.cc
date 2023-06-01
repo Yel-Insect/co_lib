@@ -4,6 +4,7 @@
 #include <functional>
 #include <string>
 #include <time.h>
+#include "config.h"
 
 
 
@@ -39,7 +40,7 @@ class NameFormatItem : public LogFormatter::FormatItem {
 public:
     NameFormatItem(const std::string& str = "") {}
     void format(std::ostream& os, Logger::ptr logger, LogLevel::Level level, LogEvent::ptr event) override {
-        os << logger->getName();
+        os << event->getLogger()->getName();
     }
 };
 
@@ -183,9 +184,14 @@ Logger::Logger (const std::string& name)
 void Logger::log(LogLevel::Level level, LogEvent::ptr event) {
 	if (level >= m_level) {
 		auto self = shared_from_this();
-		for (auto& i : m_appenders) {
-			i->log(self, level, event);
+		if (!m_appenders.empty()) {
+			for (auto& i : m_appenders) {
+				i->log(self, level, event);
+			}
+		} else if (m_root) {
+			m_root->log(level, event);
 		}
+		
 	}
 }
 void Logger::delAppender(LogAppender::ptr appender) {
@@ -197,11 +203,35 @@ void Logger::delAppender(LogAppender::ptr appender) {
 	}
 }
 
+void Logger::clearaAppender() {
+	m_appenders.clear();
+}
+
 void Logger::addAppender(LogAppender::ptr appender) {
 	if (!appender->getFormatter()) {
 		appender->setFormatter(m_formatter);
 	}
 	m_appenders.push_back(appender);
+}
+
+void Logger::setFormatter(LogFormatter::ptr val) {
+	m_formatter = val;
+}
+
+void Logger::setFormatter(std::string& val) {
+	//m_formatter.reset(new sylar::LogFormatter(val));
+	sylar::LogFormatter::ptr new_val(new sylar::LogFormatter(val));
+	// 判断new_val是否解析错误
+	if (new_val->isError()) {
+		std::cout << "Logger setFormatter name = " << m_name
+				<< " value = " << val << " invalid formatter"
+				<< std::endl;
+	}
+	m_formatter = new_val;
+}
+
+LogFormatter::ptr Logger::getFormatter() {
+	return m_formatter;
 }
 
 void Logger::debug(LogEvent::ptr event) {
@@ -328,6 +358,7 @@ void LogFormatter::init() {
 			i = n - 1;
 		} else if (fmt_status == 1) {	//格式不正确
 			//std::cout << "pattern parse error " << m_pattern << " - " << m_pattern.substr(i) << std::endl;
+			m_error = true;
 			vec.push_back(std::make_tuple("<<pattern_error>>", fmt, 0));
 		} 
 	}
@@ -371,6 +402,7 @@ void LogFormatter::init() {
 			auto it = s_format_items.find(std::get<0>(i));
 			if (it == s_format_items.end()) {
 				m_items.push_back(FormatItem::ptr(new StringFormatItem("<<error_format %" + std::get<0>(i) + ">>")));
+				m_error = true;
 			} else {
 				m_items.push_back(it->second(std::get<1>(i)));
 			}
@@ -383,13 +415,110 @@ void LogFormatter::init() {
 LoggerManager::LoggerManager() {
 	m_root.reset(new Logger);
 	m_root->addAppender(LogAppender::ptr(new StdoutLogAppender));
+
+	init();
 }
 Logger::ptr LoggerManager::getLogger(const std::string& name) {
 	auto it = m_loggers.find(name);
-	return it == m_loggers.end() ? m_root : it->second;
+	if (it != m_loggers.end()) {
+		return it->second;
+	}
+	// 找不到你要的就给你可爱的root吧
+	Logger::ptr logger(new Logger(name));
+	logger->m_root = m_root;
+	m_loggers[name] = logger;
+	return logger;
 }
 
-void LoggerManager::init() {}
+// appender的配置信息？
+struct LogAppenderDefine {
+	int type = 0; // 1 File, 2 Stdout
+	LogLevel::Level level = LogLevel::UNKNOW;
+	std::string formatter;
+	std::string file;
+
+	bool operator==(const LogAppenderDefine& oth) const {
+		return type == oth.type 
+			&& level == oth.level 
+			&& formatter == oth.formatter
+			&& file == oth.file;
+	}
+};
+
+// logger的配置信息？
+struct LogDefine {
+	std::string name;
+	LogLevel::Level level = LogLevel::UNKNOW;
+	std::string formatter;
+	std::vector<LogAppenderDefine> appenders;
+
+	bool operator==(const LogDefine& oth) const {
+		return name == oth.name
+			&& level == oth.level
+			&& formatter == oth.formatter
+			&& appenders == oth.appenders;
+	}
+
+	bool operator<(const LogDefine& oth) const {
+		 return name < oth.name;
+	}
+};
+
+sylar::ConfigVar<std::set<LogDefine>>::ptr g_log_define = 
+	sylar::Config::Lookup("logs", std::set<LogDefine>(), "logs config");
+
+
+//在main函数前初始化
+struct LogIniter {
+	LogIniter() {
+		g_log_define->addListener(0xF1E231, [](const std::set<LogDefine>& old_value,
+								const std::set<LogDefine>& new_value) {
+			SYLAR_LOG_INFO(SYLAR_LOG_ROOT()) << "on_logger_conf_changer";
+			for (auto& i : new_value) {
+				// 先查询是否存在
+				auto it = old_value.find(i);
+				sylar::Logger::ptr logger;
+				if (it == old_value.end()) {
+					// 不存在则新增logger
+					logger.reset(new sylar::Logger(i.name));
+				} else {	// 存在
+					if (!(i == *it)) {	// 不相同才修改， 相同就不动(为什么查找到了会不相同？？)
+						// 修改logger
+						logger = SYLAR_LOG_NAME(i.name);
+					}
+				}
+				// 将logger的appenders清空(主要针对已存在的吧)
+				logger->clearaAppender();
+				for (auto& a : i.appenders) {	// 取出set中的LogDefine
+					sylar::LogAppender::ptr ap;	// 根据结构体的属性为logger设新值
+					if (a.type == 1) {			// 设置appender
+						ap.reset(new FileLogAppender(a.file));
+					} else if (a.type == 2) {
+						ap.reset(new StdoutLogAppender);
+					}
+					ap->setLevel(a.level);		// 设置等级
+					logger->addAppender(ap);
+				}
+			}
+
+			// 删除旧值
+			for (auto& i : old_value) {
+				// 查找该旧值是否出现在新值中
+				auto it = new_value.find(i);
+				// 如果不存在就删除该旧值， 存在则不处理(因为上面已经修改过了)
+				if (it == new_value.end()) {
+					// 删除logger
+					auto logger = SYLAR_LOG_NAME(i.name);	
+					logger->setLevel((LogLevel::Level)100);	// 给这个logger设置不可能达到的等级(删除即忽略这个logger)
+					logger->clearaAppender();				// 清空appender
+				}
+			}
+		});
+	}
+};
+
+void LoggerManager::init() {
+}
 
 }
 
