@@ -1,1 +1,1 @@
-/usr/bin/c++ -rdynamic CMakeFiles/main.dir/config.cc.o CMakeFiles/main.dir/log.cc.o CMakeFiles/main.dir/main.cc.o CMakeFiles/main.dir/util.cc.o -o main  -lyaml-cpp 
+/usr/bin/c++ -g -rdynamic CMakeFiles/main.dir/config.cc.o CMakeFiles/main.dir/fiber.cc.o CMakeFiles/main.dir/log.cc.o CMakeFiles/main.dir/main.cc.o CMakeFiles/main.dir/thread.cc.o CMakeFiles/main.dir/util.cc.o -o main  -lyaml-cpp 

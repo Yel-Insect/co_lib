@@ -153,6 +153,30 @@ config.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/config.cc.s
 .PHONY : config.cc.s
 
+fiber.o: fiber.cc.o
+.PHONY : fiber.o
+
+# target to build an object file
+fiber.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/fiber.cc.o
+.PHONY : fiber.cc.o
+
+fiber.i: fiber.cc.i
+.PHONY : fiber.i
+
+# target to preprocess a source file
+fiber.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/fiber.cc.i
+.PHONY : fiber.cc.i
+
+fiber.s: fiber.cc.s
+.PHONY : fiber.s
+
+# target to generate assembly for a file
+fiber.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/fiber.cc.s
+.PHONY : fiber.cc.s
+
 log.o: log.cc.o
 .PHONY : log.o
 
@@ -201,6 +225,30 @@ main.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/main.cc.s
 .PHONY : main.cc.s
 
+thread.o: thread.cc.o
+.PHONY : thread.o
+
+# target to build an object file
+thread.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/thread.cc.o
+.PHONY : thread.cc.o
+
+thread.i: thread.cc.i
+.PHONY : thread.i
+
+# target to preprocess a source file
+thread.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/thread.cc.i
+.PHONY : thread.cc.i
+
+thread.s: thread.cc.s
+.PHONY : thread.s
+
+# target to generate assembly for a file
+thread.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/thread.cc.s
+.PHONY : thread.cc.s
+
 util.o: util.cc.o
 .PHONY : util.o
 
@@ -237,12 +285,18 @@ help:
 	@echo "... config.o"
 	@echo "... config.i"
 	@echo "... config.s"
+	@echo "... fiber.o"
+	@echo "... fiber.i"
+	@echo "... fiber.s"
 	@echo "... log.o"
 	@echo "... log.i"
 	@echo "... log.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... thread.o"
+	@echo "... thread.i"
+	@echo "... thread.s"
 	@echo "... util.o"
 	@echo "... util.i"
 	@echo "... util.s"

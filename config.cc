@@ -2,11 +2,12 @@
 #include <iostream>
 
 namespace sylar{
-Config::ConfigVarMap Config::s_datas;
+// Config::ConfigVarMap Config::s_datas;
 
 ConfigVarBase::ptr Config::LookupBase(const std::string& name) {
-    auto it = s_datas.find(name);
-    return it == s_datas.end() ? nullptr : it->second;
+    RWMutexType::ReadLock lock(GetMutex());
+    auto it = GetDatas().find(name);
+    return it == GetDatas().end() ? nullptr : it->second;
 }
 
 static void ListAllMember(const std::string& prefix, 
@@ -32,20 +33,22 @@ static void ListAllMember(const std::string& prefix,
     }
 }
 
-
+// 将配置文件中的数据载入到config中的MAP当中
+// 将字符串转化为具体数据
 void Config::LoadFromYaml(const YAML::Node& root) {
     std::list<std::pair<std::string, const YAML::Node>> all_nodes;
     ListAllMember("", root, all_nodes);
-
+    // 取pair
     for (auto& i : all_nodes) {
         std::string key = i.first;
         if (key.empty()) {
             continue;
         }
+        // 将key转化为小写
         std::transform(key.begin(), key.end(), key.begin(), ::tolower);
-        ConfigVarBase::ptr var = LookupBase(key);
+        ConfigVarBase::ptr var = LookupBase(key);   // 去MAP中查找该key
         if (var) {
-            
+            // 节点是否为标量
             if (i.second.IsScalar()) {
                 var->fromString(i.second.Scalar());
             } else {
@@ -54,6 +57,15 @@ void Config::LoadFromYaml(const YAML::Node& root) {
                 var->fromString(ss.str());
             }
         }
+    }
+}
+
+void Config::Visit(std::function<void(ConfigVarBase::ptr)> cb) {
+    RWMutexType::ReadLock lock(GetMutex());
+    ConfigVarMap& m = GetDatas();
+    for (auto it = m.begin();
+            it != m.end(); it++) {
+        cb(it->second);
     }
 }
 

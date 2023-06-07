@@ -83,10 +83,24 @@ CMakeFiles/main.dir/config.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main.dir/config.cc.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/beautiful/桌面/server/sylar/config.cc -o CMakeFiles/main.dir/config.cc.s
 
+CMakeFiles/main.dir/fiber.cc.o: CMakeFiles/main.dir/flags.make
+CMakeFiles/main.dir/fiber.cc.o: fiber.cc
+CMakeFiles/main.dir/fiber.cc.o: CMakeFiles/main.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/beautiful/桌面/server/sylar/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/main.dir/fiber.cc.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main.dir/fiber.cc.o -MF CMakeFiles/main.dir/fiber.cc.o.d -o CMakeFiles/main.dir/fiber.cc.o -c /home/beautiful/桌面/server/sylar/fiber.cc
+
+CMakeFiles/main.dir/fiber.cc.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/main.dir/fiber.cc.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/beautiful/桌面/server/sylar/fiber.cc > CMakeFiles/main.dir/fiber.cc.i
+
+CMakeFiles/main.dir/fiber.cc.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main.dir/fiber.cc.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/beautiful/桌面/server/sylar/fiber.cc -o CMakeFiles/main.dir/fiber.cc.s
+
 CMakeFiles/main.dir/log.cc.o: CMakeFiles/main.dir/flags.make
 CMakeFiles/main.dir/log.cc.o: log.cc
 CMakeFiles/main.dir/log.cc.o: CMakeFiles/main.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/beautiful/桌面/server/sylar/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/main.dir/log.cc.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/beautiful/桌面/server/sylar/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/main.dir/log.cc.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main.dir/log.cc.o -MF CMakeFiles/main.dir/log.cc.o.d -o CMakeFiles/main.dir/log.cc.o -c /home/beautiful/桌面/server/sylar/log.cc
 
 CMakeFiles/main.dir/log.cc.i: cmake_force
@@ -100,7 +114,7 @@ CMakeFiles/main.dir/log.cc.s: cmake_force
 CMakeFiles/main.dir/main.cc.o: CMakeFiles/main.dir/flags.make
 CMakeFiles/main.dir/main.cc.o: main.cc
 CMakeFiles/main.dir/main.cc.o: CMakeFiles/main.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/beautiful/桌面/server/sylar/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/main.dir/main.cc.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/beautiful/桌面/server/sylar/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/main.dir/main.cc.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main.dir/main.cc.o -MF CMakeFiles/main.dir/main.cc.o.d -o CMakeFiles/main.dir/main.cc.o -c /home/beautiful/桌面/server/sylar/main.cc
 
 CMakeFiles/main.dir/main.cc.i: cmake_force
@@ -111,10 +125,24 @@ CMakeFiles/main.dir/main.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main.dir/main.cc.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/beautiful/桌面/server/sylar/main.cc -o CMakeFiles/main.dir/main.cc.s
 
+CMakeFiles/main.dir/thread.cc.o: CMakeFiles/main.dir/flags.make
+CMakeFiles/main.dir/thread.cc.o: thread.cc
+CMakeFiles/main.dir/thread.cc.o: CMakeFiles/main.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/beautiful/桌面/server/sylar/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/main.dir/thread.cc.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main.dir/thread.cc.o -MF CMakeFiles/main.dir/thread.cc.o.d -o CMakeFiles/main.dir/thread.cc.o -c /home/beautiful/桌面/server/sylar/thread.cc
+
+CMakeFiles/main.dir/thread.cc.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/main.dir/thread.cc.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/beautiful/桌面/server/sylar/thread.cc > CMakeFiles/main.dir/thread.cc.i
+
+CMakeFiles/main.dir/thread.cc.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main.dir/thread.cc.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/beautiful/桌面/server/sylar/thread.cc -o CMakeFiles/main.dir/thread.cc.s
+
 CMakeFiles/main.dir/util.cc.o: CMakeFiles/main.dir/flags.make
 CMakeFiles/main.dir/util.cc.o: util.cc
 CMakeFiles/main.dir/util.cc.o: CMakeFiles/main.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/beautiful/桌面/server/sylar/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/main.dir/util.cc.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/beautiful/桌面/server/sylar/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/main.dir/util.cc.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main.dir/util.cc.o -MF CMakeFiles/main.dir/util.cc.o.d -o CMakeFiles/main.dir/util.cc.o -c /home/beautiful/桌面/server/sylar/util.cc
 
 CMakeFiles/main.dir/util.cc.i: cmake_force
@@ -128,20 +156,24 @@ CMakeFiles/main.dir/util.cc.s: cmake_force
 # Object files for target main
 main_OBJECTS = \
 "CMakeFiles/main.dir/config.cc.o" \
+"CMakeFiles/main.dir/fiber.cc.o" \
 "CMakeFiles/main.dir/log.cc.o" \
 "CMakeFiles/main.dir/main.cc.o" \
+"CMakeFiles/main.dir/thread.cc.o" \
 "CMakeFiles/main.dir/util.cc.o"
 
 # External object files for target main
 main_EXTERNAL_OBJECTS =
 
 main: CMakeFiles/main.dir/config.cc.o
+main: CMakeFiles/main.dir/fiber.cc.o
 main: CMakeFiles/main.dir/log.cc.o
 main: CMakeFiles/main.dir/main.cc.o
+main: CMakeFiles/main.dir/thread.cc.o
 main: CMakeFiles/main.dir/util.cc.o
 main: CMakeFiles/main.dir/build.make
 main: CMakeFiles/main.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/beautiful/桌面/server/sylar/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable main"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/beautiful/桌面/server/sylar/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX executable main"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/main.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

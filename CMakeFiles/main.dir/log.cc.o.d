@@ -195,8 +195,8 @@ CMakeFiles/main.dir/log.cc.o: /home/beautiful/桌面/server/sylar/log.cc \
  /usr/include/x86_64-linux-gnu/bits/unistd_ext.h \
  /usr/include/linux/close_range.h \
  /home/beautiful/桌面/server/sylar/singleton.h \
- /usr/include/c++/11/iostream /usr/include/c++/11/functional \
- /usr/include/c++/11/bits/std_function.h \
+ /home/beautiful/桌面/server/sylar/thread.h \
+ /usr/include/c++/11/functional /usr/include/c++/11/bits/std_function.h \
  /usr/include/c++/11/unordered_map /usr/include/c++/11/bits/hashtable.h \
  /usr/include/c++/11/bits/hashtable_policy.h \
  /usr/include/c++/11/bits/enable_special_members.h \
@@ -204,7 +204,13 @@ CMakeFiles/main.dir/log.cc.o: /home/beautiful/桌面/server/sylar/log.cc \
  /usr/include/c++/11/bits/stl_algo.h \
  /usr/include/c++/11/bits/algorithmfwd.h \
  /usr/include/c++/11/bits/stl_heap.h \
- /usr/include/c++/11/bits/uniform_int_dist.h \
+ /usr/include/c++/11/bits/uniform_int_dist.h /usr/include/c++/11/thread \
+ /usr/include/c++/11/bits/std_thread.h \
+ /usr/include/c++/11/bits/this_thread_sleep.h /usr/include/c++/11/chrono \
+ /usr/include/c++/11/ratio /usr/include/c++/11/limits \
+ /usr/include/c++/11/ctime /usr/include/c++/11/bits/parse_numbers.h \
+ /usr/include/semaphore.h /usr/include/x86_64-linux-gnu/bits/semaphore.h \
+ /usr/include/c++/11/atomic /usr/include/c++/11/iostream \
  /home/beautiful/桌面/server/sylar/config.h \
  /usr/include/boost/lexical_cast.hpp /usr/include/boost/config.hpp \
  /usr/include/boost/config/user.hpp \
@@ -448,8 +454,7 @@ CMakeFiles/main.dir/log.cc.o: /home/beautiful/桌面/server/sylar/log.cc \
  /usr/include/boost/preprocessor/seq/enum.hpp \
  /usr/include/boost/concept/detail/concept_undef.hpp \
  /usr/include/boost/iterator/iterator_concepts.hpp \
- /usr/include/boost/limits.hpp /usr/include/c++/11/limits \
- /usr/include/c++/11/algorithm \
+ /usr/include/boost/limits.hpp /usr/include/c++/11/algorithm \
  /usr/include/c++/11/pstl/glue_algorithm_defs.h \
  /usr/include/boost/range/value_type.hpp \
  /usr/include/boost/range/detail/misc_concept.hpp \
@@ -586,7 +591,7 @@ CMakeFiles/main.dir/log.cc.o: /home/beautiful/桌面/server/sylar/log.cc \
  /usr/include/boost/move/detail/std_ns_end.hpp \
  /usr/include/boost/lexical_cast/detail/converter_lexical_streams.hpp \
  /usr/include/c++/11/cstring /usr/include/c++/11/locale \
- /usr/include/c++/11/bits/locale_facets_nonio.h /usr/include/c++/11/ctime \
+ /usr/include/c++/11/bits/locale_facets_nonio.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/time_members.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/messages_members.h \
  /usr/include/libintl.h /usr/include/c++/11/bits/locale_facets_nonio.tcc \
@@ -781,8 +786,8 @@ CMakeFiles/main.dir/log.cc.o: /home/beautiful/桌面/server/sylar/log.cc \
  /usr/local/include/yaml-cpp/node/detail/node_iterator.h \
  /usr/local/include/yaml-cpp/node/iterator.h \
  /usr/local/include/yaml-cpp/node/detail/iterator.h \
- /usr/include/c++/11/atomic /usr/local/include/yaml-cpp/node/convert.h \
- /usr/include/c++/11/valarray /usr/include/c++/11/bits/valarray_array.h \
+ /usr/local/include/yaml-cpp/node/convert.h /usr/include/c++/11/valarray \
+ /usr/include/c++/11/bits/valarray_array.h \
  /usr/include/c++/11/bits/valarray_array.tcc \
  /usr/include/c++/11/bits/valarray_before.h \
  /usr/include/c++/11/bits/slice_array.h \
