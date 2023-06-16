@@ -167,6 +167,7 @@ CMakeFiles/main.dir/thread.cc.o: \
  /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
  /usr/include/c++/11/bits/charconv.h \
  /usr/include/c++/11/bits/basic_string.tcc /usr/include/c++/11/atomic \
+ /home/beautiful/桌面/server/sylar/noncopyable.h \
  /home/beautiful/桌面/server/sylar/log.h /usr/include/c++/11/list \
  /usr/include/c++/11/bits/stl_list.h /usr/include/c++/11/bits/list.tcc \
  /usr/include/c++/11/fstream /usr/include/c++/11/istream \

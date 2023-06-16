@@ -153,6 +153,30 @@ config.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/config.cc.s
 .PHONY : config.cc.s
 
+fd_manager.o: fd_manager.cc.o
+.PHONY : fd_manager.o
+
+# target to build an object file
+fd_manager.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/fd_manager.cc.o
+.PHONY : fd_manager.cc.o
+
+fd_manager.i: fd_manager.cc.i
+.PHONY : fd_manager.i
+
+# target to preprocess a source file
+fd_manager.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/fd_manager.cc.i
+.PHONY : fd_manager.cc.i
+
+fd_manager.s: fd_manager.cc.s
+.PHONY : fd_manager.s
+
+# target to generate assembly for a file
+fd_manager.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/fd_manager.cc.s
+.PHONY : fd_manager.cc.s
+
 fiber.o: fiber.cc.o
 .PHONY : fiber.o
 
@@ -176,6 +200,54 @@ fiber.s: fiber.cc.s
 fiber.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/fiber.cc.s
 .PHONY : fiber.cc.s
+
+hook.o: hook.cc.o
+.PHONY : hook.o
+
+# target to build an object file
+hook.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/hook.cc.o
+.PHONY : hook.cc.o
+
+hook.i: hook.cc.i
+.PHONY : hook.i
+
+# target to preprocess a source file
+hook.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/hook.cc.i
+.PHONY : hook.cc.i
+
+hook.s: hook.cc.s
+.PHONY : hook.s
+
+# target to generate assembly for a file
+hook.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/hook.cc.s
+.PHONY : hook.cc.s
+
+iomanager.o: iomanager.cc.o
+.PHONY : iomanager.o
+
+# target to build an object file
+iomanager.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/iomanager.cc.o
+.PHONY : iomanager.cc.o
+
+iomanager.i: iomanager.cc.i
+.PHONY : iomanager.i
+
+# target to preprocess a source file
+iomanager.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/iomanager.cc.i
+.PHONY : iomanager.cc.i
+
+iomanager.s: iomanager.cc.s
+.PHONY : iomanager.s
+
+# target to generate assembly for a file
+iomanager.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/iomanager.cc.s
+.PHONY : iomanager.cc.s
 
 log.o: log.cc.o
 .PHONY : log.o
@@ -225,6 +297,30 @@ main.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/main.cc.s
 .PHONY : main.cc.s
 
+scheduler.o: scheduler.cc.o
+.PHONY : scheduler.o
+
+# target to build an object file
+scheduler.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/scheduler.cc.o
+.PHONY : scheduler.cc.o
+
+scheduler.i: scheduler.cc.i
+.PHONY : scheduler.i
+
+# target to preprocess a source file
+scheduler.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/scheduler.cc.i
+.PHONY : scheduler.cc.i
+
+scheduler.s: scheduler.cc.s
+.PHONY : scheduler.s
+
+# target to generate assembly for a file
+scheduler.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/scheduler.cc.s
+.PHONY : scheduler.cc.s
+
 thread.o: thread.cc.o
 .PHONY : thread.o
 
@@ -248,6 +344,30 @@ thread.s: thread.cc.s
 thread.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/thread.cc.s
 .PHONY : thread.cc.s
+
+timer.o: timer.cc.o
+.PHONY : timer.o
+
+# target to build an object file
+timer.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/timer.cc.o
+.PHONY : timer.cc.o
+
+timer.i: timer.cc.i
+.PHONY : timer.i
+
+# target to preprocess a source file
+timer.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/timer.cc.i
+.PHONY : timer.cc.i
+
+timer.s: timer.cc.s
+.PHONY : timer.s
+
+# target to generate assembly for a file
+timer.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/timer.cc.s
+.PHONY : timer.cc.s
 
 util.o: util.cc.o
 .PHONY : util.o
@@ -285,18 +405,33 @@ help:
 	@echo "... config.o"
 	@echo "... config.i"
 	@echo "... config.s"
+	@echo "... fd_manager.o"
+	@echo "... fd_manager.i"
+	@echo "... fd_manager.s"
 	@echo "... fiber.o"
 	@echo "... fiber.i"
 	@echo "... fiber.s"
+	@echo "... hook.o"
+	@echo "... hook.i"
+	@echo "... hook.s"
+	@echo "... iomanager.o"
+	@echo "... iomanager.i"
+	@echo "... iomanager.s"
 	@echo "... log.o"
 	@echo "... log.i"
 	@echo "... log.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... scheduler.o"
+	@echo "... scheduler.i"
+	@echo "... scheduler.s"
 	@echo "... thread.o"
 	@echo "... thread.i"
 	@echo "... thread.s"
+	@echo "... timer.o"
+	@echo "... timer.i"
+	@echo "... timer.s"
 	@echo "... util.o"
 	@echo "... util.i"
 	@echo "... util.s"

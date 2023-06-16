@@ -171,6 +171,7 @@ CMakeFiles/main.dir/fiber.cc.o: \
  /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
  /usr/include/c++/11/bits/charconv.h \
  /usr/include/c++/11/bits/basic_string.tcc \
+ /home/beautiful/桌面/server/sylar/noncopyable.h \
  /home/beautiful/桌面/server/sylar/macro.h /usr/include/string.h \
  /usr/include/strings.h /usr/include/assert.h \
  /home/beautiful/桌面/server/sylar/util.h \
@@ -801,4 +802,5 @@ CMakeFiles/main.dir/fiber.cc.o: \
  /usr/include/x86_64-linux-gnu/c++/11/bits/basic_file.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/c++io.h \
  /usr/include/c++/11/bits/fstream.tcc \
- /home/beautiful/桌面/server/sylar/singleton.h
+ /home/beautiful/桌面/server/sylar/singleton.h \
+ /home/beautiful/桌面/server/sylar/scheduler.h

@@ -2,6 +2,7 @@
 #include "fiber.h"
 #include "macro.h"
 #include "config.h"
+#include "scheduler.h"
 #include "log.h"
 
 namespace sylar {
@@ -9,6 +10,7 @@ namespace sylar {
 static std::atomic<uint64_t> s_fiber_id {0};
 static std::atomic<uint64_t> s_fiber_count {0};
 
+// 当前协程
 static thread_local Fiber* t_fiber = nullptr;
 static thread_local Fiber::ptr t_threadFiber = nullptr;
 
@@ -46,22 +48,41 @@ Fiber::Fiber() {
     }
 
     ++s_fiber_count;
+
+    SYLAR_LOG_DEBUG(g_logger) << "Fiber::Fiber";
 }
 
-Fiber::Fiber(std::function<void()> cb, size_t stacksize) 
+Fiber::Fiber(std::function<void()> cb, size_t stacksize, bool use_caller) 
     : m_id(++s_fiber_id), m_cb(cb) {
-    ++s_fiber_count;
+    ++s_fiber_count;    // 增加协程数量
+    // 如果大于0, 则按用户设置栈大小， 否则按照默认设置
     m_stacksize = stacksize ? stacksize : g_fiber_stack_size->getValue();
-
+    // 分配一个栈空间
     m_stack = StackAllocator::Alloc(m_stacksize);
+    // 初始化上下文
     if (getcontext(&m_ctx)) {
         SYLAR_ASSERT2(false, "getcontext");
     } 
+    // 初始化上下文状态
     m_ctx.uc_link = nullptr;
     m_ctx.uc_stack.ss_sp = m_stack;
     m_ctx.uc_stack.ss_size = m_stacksize;
 
-    makecontext(&m_ctx, &Fiber::MainFunc, 0);
+    // 设置上下文
+    // 如果不为use_caller则与MainFunc绑定
+    // 否则则与CallerMainFUnc绑定(需要区分主线程与工作线程当中的协程切换)
+    if (!use_caller) {
+        makecontext(&m_ctx, &Fiber::MainFunc, 0);
+    } else {
+        makecontext(&m_ctx, &Fiber::CallerMainFunc, 0);
+    }
+    /*
+        这里为什么需要区分
+        在工作线程里主协程与run协程相同，与工作协程相互切换，因此只需要交换t_fiber
+        而在主线程里主协程与run协程是分开的，需要区分，否则就会与自己交换
+    */
+
+    SYLAR_LOG_DEBUG(g_logger) << "Fiber::Fiber id = " << m_id;
 }
 
 Fiber::~Fiber() {
@@ -78,6 +99,8 @@ Fiber::~Fiber() {
             SetThis(nullptr);
         }
     }
+
+    SYLAR_LOG_DEBUG(g_logger) << "Fiber::~Fiber id = " << m_id;
 }
 
 void Fiber::reset(std::function<void()> cb) {
@@ -96,21 +119,47 @@ void Fiber::reset(std::function<void()> cb) {
     m_state = INIT;
 }
 
-void Fiber::swapIn() {
+// 与工作线程的主协程互换
+void Fiber::call() {
     SetThis(this);
-    SYLAR_ASSERT(m_state != EXEC);
     m_state = EXEC;
     if (swapcontext(&t_threadFiber->m_ctx, &m_ctx)) {
+         SYLAR_ASSERT2(false, "swapcontext");
+    }
+}
+
+// 同上
+void Fiber::back() {
+    SetThis(t_threadFiber.get());
+    if (swapcontext(&m_ctx, &t_threadFiber->m_ctx)) {
         SYLAR_ASSERT2(false, "swapcontext");
     }
 }
 
-void Fiber::swapOut() {
-    SetThis(t_threadFiber.get());
-
-    if (swapcontext(&m_ctx, &t_threadFiber->m_ctx)) {
+// 与工作线程的主协程互换
+void Fiber::swapIn() {
+    SetThis(this);
+    SYLAR_ASSERT(m_state != EXEC);
+    m_state = EXEC;
+    if (swapcontext(&Scheduler::GetMainFiber()->m_ctx, &m_ctx)) {
         SYLAR_ASSERT2(false, "swapcontext");
     }
+}
+
+// 同上
+void Fiber::swapOut() {
+    // if (t_fiber != Scheduler::GetMainFiber()) { 
+        SetThis(Scheduler::GetMainFiber());
+        if (swapcontext(&m_ctx, &Scheduler::GetMainFiber()->m_ctx)) {
+            SYLAR_ASSERT2(false, "swapcontext");
+        }
+    // } else {
+    //     SetThis(t_threadFiber.get());
+    //     if (swapcontext(&m_ctx, &t_threadFiber->m_ctx)) {
+    //         SYLAR_ASSERT2(false, "swapcontext");
+    //     }
+    // }
+    
 }
 
 void Fiber::SetThis(Fiber* f) {
@@ -144,6 +193,38 @@ uint64_t Fiber::TotalFibers() {
 }
 
 void Fiber::MainFunc() {
+    // 当协程结束时栈还存在，因此该智能指针不会销毁
+    Fiber::ptr cur = GetThis();     // 当前获取协程指针
+    SYLAR_ASSERT(cur);
+    try {
+        cur->m_cb();    // 调用回调函数
+        cur->m_cb = nullptr;    // 置空
+        cur->m_state = TERM;    // 设为结束状态
+    } catch (std::exception& ex) {
+        cur->m_state = EXCEPT;
+        SYLAR_LOG_ERROR(g_logger) << "Fiber Except" << ex.what()
+        << " fiber_id = " << cur->getId()
+        << std::endl << sylar::BacktraceToString();
+    } catch (...) {
+        cur->m_state = EXCEPT;
+        SYLAR_LOG_ERROR(g_logger) << "Fiber Except"
+        << " fiber_id = " << cur->getId()
+        << std::endl << sylar::BacktraceToString();
+    }
+
+    // 拿出裸指针
+    auto raw_ptr = cur.get();
+    // 将计数-1
+    cur.reset();
+    // 切换到主协程
+    raw_ptr->swapOut(); // 区别❗
+
+    // 结尾没加分号，看你什么时候报错
+    SYLAR_ASSERT2(false, "never reach" + std::to_string(raw_ptr->getId()))
+}
+
+void Fiber::CallerMainFunc() {
+    // 当协程结束时栈还存在，因此该智能指针不会销毁
     Fiber::ptr cur = GetThis();
     SYLAR_ASSERT(cur);
     try {
@@ -152,11 +233,25 @@ void Fiber::MainFunc() {
         cur->m_state = TERM;
     } catch (std::exception& ex) {
         cur->m_state = EXCEPT;
-        SYLAR_LOG_ERROR(g_logger) << "Fiber Except" << ex.what();
+        SYLAR_LOG_ERROR(g_logger) << "Fiber Except" << ex.what()
+        << " fiber_id = " << cur->getId()
+        << std::endl << sylar::BacktraceToString();
     } catch (...) {
         cur->m_state = EXCEPT;
-        SYLAR_LOG_ERROR(g_logger) << "Fiber Except";
+        SYLAR_LOG_ERROR(g_logger) << "Fiber Except"
+        << " fiber_id = " << cur->getId()
+        << std::endl << sylar::BacktraceToString();
     }
+
+    // 拿出裸指针
+    auto raw_ptr = cur.get();
+    // 将计数-1
+    cur.reset();
+    // 切换到主协程
+    raw_ptr->back();    // 区别❗
+
+    // 结尾没加分号，看你什么时候报错
+    SYLAR_ASSERT2(false, "never reach" + std::to_string(raw_ptr->getId()))
 }
 
 }

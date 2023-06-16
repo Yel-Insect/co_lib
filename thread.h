@@ -8,20 +8,17 @@
 #include <memory>
 #include <string>
 #include <atomic>
+#include "noncopyable.h"
 
 namespace sylar {
 
-class Semaphore {
+class Semaphore : Noncopyable {
 public:
     Semaphore(uint32_t count = 0);
     ~Semaphore();
 
     void wait();
     void notify();
-private:
-    Semaphore(const Semaphore&) = delete;
-    Semaphore(const Semaphore&&) = delete;
-    Semaphore& operator=(const Semaphore&) = delete; 
 private:
     sem_t m_semaphore;
 };
@@ -54,7 +51,7 @@ private:
     bool m_locked;
 };
 
-class Mutex {
+class Mutex : Noncopyable {
 public:
     typedef ScopedLockImpl<Mutex> Lock;
     Mutex() {
@@ -75,7 +72,7 @@ private:
 };
 
 // 自旋锁
-class SpinLock {
+class SpinLock : Noncopyable {
 public:
     SpinLock() {
         pthread_spin_init(&m_mutex, 0);
@@ -95,7 +92,7 @@ private:
 };
 
 // 空锁(调试用的)
-class NullMutex {
+class NullMutex : Noncopyable {
 public:
     typedef ScopedLockImpl<NullMutex> Lock;
     NullMutex() {}
@@ -162,7 +159,7 @@ private:
 
 
 // 读写🔓
-class RWMutex {
+class RWMutex : Noncopyable {
 public:
     typedef ReadScopedLockImpl<RWMutex> ReadLock;   // 读锁
     typedef WriteScopedLockImpl<RWMutex> WriteLock; // 写锁
@@ -187,7 +184,7 @@ private:
 };
 
 // 空读写锁(调试用的)
-class NullRWMutex {
+class NullRWMutex : Noncopyable {
 public:
     typedef ReadScopedLockImpl<NullRWMutex> ReadLock;
     typedef WriteScopedLockImpl<NullRWMutex> WriteLock;

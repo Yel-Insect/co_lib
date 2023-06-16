@@ -1,72 +1,74 @@
 #include <iostream>
-#include <yaml-cpp/yaml.h>
-#include <assert.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <arpa/inet.h>
 #include "sylar.h"
+#include "iomanager.h"
+#include "hook.h"
+#include "log.h"
 
+static sylar::Logger::ptr g_logger = SYLAR_LOG_ROOT();
 
-#if 0
-int cnt = 0;
-sylar::Logger::ptr g_logger = SYLAR_LOG_ROOT();
-sylar::Mutex s_mutex;
-
-void fun1() {
-	SYLAR_LOG_INFO(g_logger) << "name: " << sylar::Thread::GetName()
-							 << " this.name: " << sylar::Thread::GetThis()->getName()
-							 << " id: " << sylar::GetThreadId()
-							 << " this.id" << sylar::Thread::GetThis()->getId();
-	for (int i = 0; i < 100000; i++) {
-		sylar::Mutex::Lock lock(s_mutex);
-		//s_mutex.rdlock();
-		cnt++;
-		//s_mutex.unlock();
-	}
-}
-
-void test_thread() {
-	SYLAR_LOG_INFO(g_logger) << "thread test begin";
-	YAML::Node root = YAML::LoadFile("/home/beautiful/桌面/server/sylar/log.yml");
-	sylar::Config::LoadFromYaml(root);
-	std::vector<sylar::Thread::ptr> thrs;
-	for (int i = 0; i < 5; i++) {
-		sylar::Thread::ptr thr(new sylar::Thread(&fun1, "name_" + std::to_string(i)));
-		thrs.push_back(thr);
-	}
-	for (int i = 0; i < 5; i++) {
-		thrs[i]->join();
-	}
-	SYLAR_LOG_INFO(SYLAR_LOG_NAME("system")) << "fxxk system";
-	std::cout << root << std::endl;
-	SYLAR_LOG_INFO(g_logger) << "thread test end";
-	SYLAR_LOG_INFO(g_logger) << cnt;
-
-	sylar::Config::Visit([](sylar::ConfigVarBase::ptr var) {
-		SYLAR_LOG_INFO(g_logger) << "name" << var->getName()
-					<< " description = " << var->getDescription()
-					<< " typename = " << var->getTypeName()
-					<< " value = " << var->toString();
+void test_sleep() {
+	sylar::IOManager iom(1);
+	iom.schedule([](){
+		sleep(2);
+		SYLAR_LOG_INFO(g_logger) << "sleep 2";
 	});
-}
-sylar::Logger::ptr g_logger = SYLAR_LOG_ROOT();
-void test_assert() {
-	SYLAR_LOG_INFO(g_logger) << sylar::BacktraceToString(10);
-	SYLAR_ASSERT2(0 == 1, "fk yzt");
-}
-#endif
 
-sylar::Logger::ptr g_logger = SYLAR_LOG_ROOT();
-void run_in_fiber() {
-	SYLAR_LOG_INFO(g_logger) << "run_in_fiber begin";
-	sylar::Fiber::GetThis()->swapOut();
-	SYLAR_LOG_INFO(g_logger) << "run_in_fiber end";
+	iom.schedule([](){
+		sleep(3);
+		SYLAR_LOG_INFO(g_logger) << "sleep 3";
+	});
+	SYLAR_LOG_INFO(g_logger) << "test_sleep";
 }
+
+void test_sock() {
+
+	int sock = socket(AF_INET, SOCK_STREAM, 0);
+	// fcntl(sock, F_SETFL, O_NONBLOCK);
+
+	sockaddr_in addr;
+	memset(&addr, 0, sizeof(addr));
+	addr.sin_family = AF_INET;
+	addr.sin_port = htons(80);
+	inet_pton(AF_INET, "157.148.69.80", &addr.sin_addr.s_addr);
+
+	SYLAR_LOG_INFO(g_logger) << "begin connect";
+	int rt = connect(sock, (sockaddr*)&addr, sizeof(addr));
+	SYLAR_LOG_INFO(g_logger) << "connect rt = " << rt << " errno = " << strerror(errno);
+	if (rt) {
+		return ;
+	}
+
+	const char data[] = "GET / HTTP/1.0\r\n\r\n";
+	rt = send(sock, data, sizeof(data), 0);
+	SYLAR_LOG_INFO(g_logger) << "send rt = " << rt << " errno = " << strerror(errno);
+	if (rt <= 0) {
+		return ;
+	}
+
+	std::string buff;
+	buff.resize(4096);
+
+	rt = recv(sock, &buff[0], buff.size(), 0);
+	SYLAR_LOG_INFO(g_logger) << "recv rt = " << "errno = " << strerror(errno);
+
+	if (rt <= 0) {
+		return ;
+	}
+
+	buff.resize(rt);
+	SYLAR_LOG_INFO(g_logger) << buff;
+}
+
 
 int main(int argc, char** argv) {
-	sylar::Fiber::GetThis();
-	SYLAR_LOG_INFO(g_logger) << "main begin";
-	sylar::Fiber::ptr fiber(new sylar::Fiber(run_in_fiber));
-	fiber->swapIn();
-	SYLAR_LOG_INFO(g_logger) << "main after swapIn";
-	fiber->swapIn();
-	SYLAR_LOG_INFO(g_logger) << "main after end";
+	//test_sleep();
+	sleep_f(2);
+	sylar::IOManager iom;
+	iom.schedule(test_sock);
+	//test_sock();
 	return 0;
  }

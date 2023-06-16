@@ -62,6 +62,14 @@
         "ratio": "cpp",
         "semaphore": "cpp",
         "stop_token": "cpp",
-        "thread": "cpp"
+        "thread": "cpp",
+        "io_context": "cpp",
+        "condition_variable": "cpp",
+        "forward_list": "cpp",
+        "executor": "cpp",
+        "netfwd": "cpp",
+        "timer": "cpp",
+        "future": "cpp",
+        "mutex": "cpp"
     }
 }

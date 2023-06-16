@@ -210,7 +210,9 @@ CMakeFiles/main.dir/log.cc.o: /home/beautiful/桌面/server/sylar/log.cc \
  /usr/include/c++/11/ratio /usr/include/c++/11/limits \
  /usr/include/c++/11/ctime /usr/include/c++/11/bits/parse_numbers.h \
  /usr/include/semaphore.h /usr/include/x86_64-linux-gnu/bits/semaphore.h \
- /usr/include/c++/11/atomic /usr/include/c++/11/iostream \
+ /usr/include/c++/11/atomic \
+ /home/beautiful/桌面/server/sylar/noncopyable.h \
+ /usr/include/c++/11/iostream \
  /home/beautiful/桌面/server/sylar/config.h \
  /usr/include/boost/lexical_cast.hpp /usr/include/boost/config.hpp \
  /usr/include/boost/config/user.hpp \
