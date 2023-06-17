@@ -126,9 +126,11 @@ static ssize_t do_io(int fd, OriginFun fun, const char* hook_fun_name,
 retry:
     // 执行函数
     ssize_t n = fun(fd, std::forward<Args>(args)...);
+    // 如果被中断的话，继续执行
     while (n == -1 && errno == EINTR) {
         n = fun(fd, std::forward<Args>(args)...);
     }
+    // 缓冲区满了
     if (n == -1 && errno == EAGAIN) {
         sylar::IOManager* iom = sylar::IOManager::GetThis();
         sylar::Timer::ptr timer;
@@ -416,24 +418,27 @@ int fcntl(int fd, int cmd, ...) {
     va_list va;
     va_start(va, cmd);
     switch(cmd) {
-        case F_SETFL:
+        case F_SETFL:   // 给fd设置属性
             {
+                // 获取下一个为int类型的参数
                 int arg = va_arg(va, int);
                 va_end(va);
                 sylar::FdCtx::ptr ctx = sylar::FdMgr::GetInstance()->get(fd);
                 if (!ctx || ctx->isClosed() || !ctx->isSocket()) {
                     return fcntl_f(fd, cmd, arg);
                 }
+                // 看用户有没有设非阻塞
                 ctx->setUserNonblock(arg & O_NONBLOCK);
+                // 如果系统为非阻塞的话则设上(以系统为主)
                 if (ctx->getSysNonblock()) {
-                    arg != O_NONBLOCK;
+                    arg |= O_NONBLOCK;
                 } else {
                     arg &= ~O_NONBLOCK;
                 }
                 return fcntl_f(fd, cmd, arg);
             }
             break;
-        case F_GETFL:
+        case F_GETFL:   // 取得fd的属性
             {
                 va_end(va);
                 int arg = fcntl_f(fd, cmd);
@@ -495,7 +500,7 @@ int fcntl(int fd, int cmd, ...) {
     }
 }
 
-
+// 不知道干什么用的
 int ioctl(int d, unsigned long int request, ...) {
     va_list va;
     va_start(va, request);
@@ -523,6 +528,8 @@ int setsockopt(int sockfd, int level, int optname, const void *optval, socklen_t
     if (!sylar::t_hook_enable) {
         return setsockopt_f(sockfd, level, optname, optval, optlen);
     }
+
+    // 如果想要在套接字级别上设置选项，就必须把level设置为 SOL_SOCKET
     if (level == SOL_SOCKET) {
         if (optname == SO_RCVTIMEO || optname == SO_SNDTIMEO) {
             sylar::FdCtx::ptr ctx = sylar::FdMgr::GetInstance()->get(sockfd);

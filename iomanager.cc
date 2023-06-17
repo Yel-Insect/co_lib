@@ -344,7 +344,9 @@ void IOManager::idle() {
             // 判断是否为管道读事件
             if (event.data.fd == m_tickleFds[0]) {
                 uint8_t dummy;
-                while (read(m_tickleFds[0], &dummy, 1) == 1);
+                while (read(m_tickleFds[0], &dummy, 1) == 1) {
+                    // SYLAR_LOG_DEBUG(g_logger) << "reading pipe";
+                };
                 continue;
             }
 
