@@ -1,74 +1,51 @@
 #include <iostream>
-#include <unistd.h>
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <arpa/inet.h>
 #include "sylar.h"
-#include "iomanager.h"
-#include "hook.h"
+#include "address.h"
 #include "log.h"
 
 static sylar::Logger::ptr g_logger = SYLAR_LOG_ROOT();
 
-void test_sleep() {
-	sylar::IOManager iom(1);
-	iom.schedule([](){
-		sleep(2);
-		SYLAR_LOG_INFO(g_logger) << "sleep 2";
-	});
+void test() {
+	std::vector<sylar::Address::ptr> addrs;
+	SYLAR_LOG_INFO(g_logger) << "start";
+	bool v = sylar::Address::Lookup(addrs, "www.baidu.com:ftp");
+	SYLAR_LOG_INFO(g_logger) << "end";
+	if (!v) {
+		SYLAR_LOG_ERROR(g_logger) << "lookup fail";
+		return ;
+	}
 
-	iom.schedule([](){
-		sleep(3);
-		SYLAR_LOG_INFO(g_logger) << "sleep 3";
-	});
-	SYLAR_LOG_INFO(g_logger) << "test_sleep";
+	for (size_t i = 0; i < addrs.size(); i++) {
+		SYLAR_LOG_INFO(g_logger) << i << " - " << addrs[i]->toString();
+	}
 }
 
-void test_sock() {
-
-	int sock = socket(AF_INET, SOCK_STREAM, 0);
-	// fcntl(sock, F_SETFL, O_NONBLOCK);
-
-	sockaddr_in addr;
-	memset(&addr, 0, sizeof(addr));
-	addr.sin_family = AF_INET;
-	addr.sin_port = htons(80);
-	inet_pton(AF_INET, "157.148.69.80", &addr.sin_addr.s_addr);
-
-	SYLAR_LOG_INFO(g_logger) << "begin connect";
-	int rt = connect(sock, (sockaddr*)&addr, sizeof(addr));
-	SYLAR_LOG_INFO(g_logger) << "connect rt = " << rt << " errno = " << strerror(errno);
-	if (rt) {
+void test_iface() {
+	std::multimap<std::string, std::pair<sylar::Address::ptr, uint32_t>> results;
+	bool v = sylar::Address::GetInterfaceAddresses(results);
+	//SYLAR_LOG_INFO(g_logger) << "end";
+	if (!v) {
+		SYLAR_LOG_ERROR(g_logger) << "GetInterfaceAddresses fail";
 		return ;
 	}
-
-	const char data[] = "GET / HTTP/1.0\r\n\r\n";
-	rt = send(sock, data, sizeof(data), 0);
-	SYLAR_LOG_INFO(g_logger) << "send rt = " << rt << " errno = " << strerror(errno);
-	if (rt <= 0) {
-		return ;
+	for (auto& i : results) {
+		SYLAR_LOG_INFO(g_logger) << i.first << " - " << i.second.first->toString() << " - "
+			<< i.second.second;
 	}
-
-	std::string buff;
-	buff.resize(4096);
-
-	rt = recv(sock, &buff[0], buff.size(), 0);
-	SYLAR_LOG_INFO(g_logger) << "recv rt = " << "errno = " << strerror(errno);
-
-	if (rt <= 0) {
-		return ;
-	}
-
-	buff.resize(rt);
-	SYLAR_LOG_INFO(g_logger) << buff;
 }
 
+void test_ipv4() {
+	//auto addr = sylar::IPAddress::Create("www.sylar.top");
+	auto addr = sylar::IPAddress::Create("127.0.0.8");
+
+	if (addr) {
+		SYLAR_LOG_INFO(g_logger) << addr->toString();
+	}
+}
 
 int main(int argc, char** argv) {
-	//test_sleep();
-	sleep_f(2);
-	sylar::IOManager iom;
-	iom.schedule(test_sock);
-	//test_sock();
+	//test();
+	//test_iface();
+	test_ipv4();
 	return 0;
  }

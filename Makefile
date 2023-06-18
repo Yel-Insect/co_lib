@@ -129,6 +129,30 @@ main/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/build
 .PHONY : main/fast
 
+address.o: address.cc.o
+.PHONY : address.o
+
+# target to build an object file
+address.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/address.cc.o
+.PHONY : address.cc.o
+
+address.i: address.cc.i
+.PHONY : address.i
+
+# target to preprocess a source file
+address.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/address.cc.i
+.PHONY : address.cc.i
+
+address.s: address.cc.s
+.PHONY : address.s
+
+# target to generate assembly for a file
+address.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/address.cc.s
+.PHONY : address.cc.s
+
 config.o: config.cc.o
 .PHONY : config.o
 
@@ -402,6 +426,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... main"
+	@echo "... address.o"
+	@echo "... address.i"
+	@echo "... address.s"
 	@echo "... config.o"
 	@echo "... config.i"
 	@echo "... config.s"

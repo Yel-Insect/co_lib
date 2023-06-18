@@ -8,6 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "/home/beautiful/桌面/server/sylar/address.cc" "CMakeFiles/main.dir/address.cc.o" "gcc" "CMakeFiles/main.dir/address.cc.o.d"
   "/home/beautiful/桌面/server/sylar/config.cc" "CMakeFiles/main.dir/config.cc.o" "gcc" "CMakeFiles/main.dir/config.cc.o.d"
   "/home/beautiful/桌面/server/sylar/fd_manager.cc" "CMakeFiles/main.dir/fd_manager.cc.o" "gcc" "CMakeFiles/main.dir/fd_manager.cc.o.d"
   "/home/beautiful/桌面/server/sylar/fiber.cc" "CMakeFiles/main.dir/fiber.cc.o" "gcc" "CMakeFiles/main.dir/fiber.cc.o.d"
