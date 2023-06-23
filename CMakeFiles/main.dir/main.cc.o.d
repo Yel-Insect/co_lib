@@ -823,4 +823,7 @@ CMakeFiles/main.dir/main.cc.o: \
  /usr/include/asm-generic/sockios.h \
  /usr/include/x86_64-linux-gnu/bits/types/struct_osockaddr.h \
  /usr/include/x86_64-linux-gnu/sys/un.h /usr/include/arpa/inet.h \
- /usr/include/netinet/in.h /usr/include/x86_64-linux-gnu/bits/in.h
+ /usr/include/netinet/in.h /usr/include/x86_64-linux-gnu/bits/in.h \
+ /home/beautiful/桌面/server/sylar/socket.h \
+ /home/beautiful/桌面/server/sylar/iomanager.h \
+ /home/beautiful/桌面/server/sylar/timer.h

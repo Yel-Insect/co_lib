@@ -17,6 +17,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/main.dir/main.cc.o.d"
   "CMakeFiles/main.dir/scheduler.cc.o"
   "CMakeFiles/main.dir/scheduler.cc.o.d"
+  "CMakeFiles/main.dir/socket.cc.o"
+  "CMakeFiles/main.dir/socket.cc.o.d"
   "CMakeFiles/main.dir/thread.cc.o"
   "CMakeFiles/main.dir/thread.cc.o.d"
   "CMakeFiles/main.dir/timer.cc.o"

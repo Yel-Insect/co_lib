@@ -345,6 +345,30 @@ scheduler.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/scheduler.cc.s
 .PHONY : scheduler.cc.s
 
+socket.o: socket.cc.o
+.PHONY : socket.o
+
+# target to build an object file
+socket.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/socket.cc.o
+.PHONY : socket.cc.o
+
+socket.i: socket.cc.i
+.PHONY : socket.i
+
+# target to preprocess a source file
+socket.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/socket.cc.i
+.PHONY : socket.cc.i
+
+socket.s: socket.cc.s
+.PHONY : socket.s
+
+# target to generate assembly for a file
+socket.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/socket.cc.s
+.PHONY : socket.cc.s
+
 thread.o: thread.cc.o
 .PHONY : thread.o
 
@@ -453,6 +477,9 @@ help:
 	@echo "... scheduler.o"
 	@echo "... scheduler.i"
 	@echo "... scheduler.s"
+	@echo "... socket.o"
+	@echo "... socket.i"
+	@echo "... socket.s"
 	@echo "... thread.o"
 	@echo "... thread.i"
 	@echo "... thread.s"

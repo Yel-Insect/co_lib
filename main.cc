@@ -1,51 +1,51 @@
 #include <iostream>
 #include "sylar.h"
 #include "address.h"
-#include "log.h"
+#include "socket.h"
+#include "iomanager.h"
 
 static sylar::Logger::ptr g_logger = SYLAR_LOG_ROOT();
 
-void test() {
-	std::vector<sylar::Address::ptr> addrs;
-	SYLAR_LOG_INFO(g_logger) << "start";
-	bool v = sylar::Address::Lookup(addrs, "www.baidu.com:ftp");
-	SYLAR_LOG_INFO(g_logger) << "end";
-	if (!v) {
-		SYLAR_LOG_ERROR(g_logger) << "lookup fail";
-		return ;
-	}
-
-	for (size_t i = 0; i < addrs.size(); i++) {
-		SYLAR_LOG_INFO(g_logger) << i << " - " << addrs[i]->toString();
-	}
-}
-
-void test_iface() {
-	std::multimap<std::string, std::pair<sylar::Address::ptr, uint32_t>> results;
-	bool v = sylar::Address::GetInterfaceAddresses(results);
-	//SYLAR_LOG_INFO(g_logger) << "end";
-	if (!v) {
-		SYLAR_LOG_ERROR(g_logger) << "GetInterfaceAddresses fail";
-		return ;
-	}
-	for (auto& i : results) {
-		SYLAR_LOG_INFO(g_logger) << i.first << " - " << i.second.first->toString() << " - "
-			<< i.second.second;
-	}
-}
-
-void test_ipv4() {
-	//auto addr = sylar::IPAddress::Create("www.sylar.top");
-	auto addr = sylar::IPAddress::Create("127.0.0.8");
-
+void test_socket() {
+	sylar::IPAddress::ptr addr = sylar::Address::LookupAnyIPAdress("www.baidu.com");
 	if (addr) {
-		SYLAR_LOG_INFO(g_logger) << addr->toString();
+		SYLAR_LOG_INFO(g_logger) << "get address: " << addr->toString();
+	} else {
+		SYLAR_LOG_ERROR(g_logger) << "get address fail";
+		return ;
 	}
+
+	sylar::Socket::ptr sock = sylar::Socket::CreateTCP(addr);
+	addr->setPort(80);
+	if (!sock->connect(addr)) {
+		SYLAR_LOG_ERROR(g_logger) << "connect" << addr->toString() << " fail";
+		return ;
+	} else {
+		SYLAR_LOG_INFO(g_logger) << "connect " << addr->toString() << " coonnected";
+	}
+
+	const char buff[] = "GET / HTTP/1.0\r\n\r\n";
+	int rt = sock->send(buff, sizeof(buff));
+	if (rt <= 0) {
+		SYLAR_LOG_INFO(g_logger) << "send fail rt = " << rt;
+		return ;
+	}
+
+	std::string buffs;
+	buffs.resize(4096);
+	rt = sock->recv(&buffs[0], buffs.size());
+
+	if (rt <= 0) {
+		SYLAR_LOG_INFO(g_logger) << "recv fail rt = " << rt;
+		return ;
+	}
+
+	buffs.resize(rt);
+	SYLAR_LOG_INFO(g_logger) << buffs;
 }
 
 int main(int argc, char** argv) {
-	//test();
-	//test_iface();
-	test_ipv4();
+	sylar::IOManager iom;
+	iom.schedule(&test_socket);
 	return 0;
  }
