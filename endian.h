@@ -5,7 +5,7 @@
 #include <type_traits>
 #include <stdint.h>
 
-#define SYLAR_LITTER_ENDIAN 1   // 小端
+#define SYLAR_LITTLE_ENDIAN 1   // 小端
 #define SYLAR_BIG_ENDIAN 2      // 大端
 
 namespace sylar {

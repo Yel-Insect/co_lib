@@ -59,6 +59,7 @@ Socket::~Socket() {
     close();
 }
 
+// 获取发送超时时间
 int64_t Socket::getSendTimeout() {
     FdCtx::ptr ctx = FdMgr::GetInstance()->get(m_sock);
     if (ctx) {
@@ -67,12 +68,13 @@ int64_t Socket::getSendTimeout() {
     return -1;
 }
 
-
+// 设置发送超时时间
 void Socket::setSendTimeout(int64_t v) {
     struct timeval tv{int(v / 1000), int(v % 1000 * 1000)};
     setOption(SOL_SOCKET, SO_SNDTIMEO, tv);
 }
 
+// 获取接收超时时间
 int64_t Socket::getRecvTimeout() {
     FdCtx::ptr ctx = FdMgr::GetInstance()->get(m_sock);
     if (ctx) {
@@ -81,6 +83,7 @@ int64_t Socket::getRecvTimeout() {
     return -1;
 }
 
+// 设置接受超时时间
 void Socket::setRecvTimeout(int64_t v) {
     struct timeval tv{int(v / 1000), int(v % 1000 * 1000)};
     setOption(SOL_SOCKET, SO_RCVTIMEO, tv);
@@ -97,6 +100,7 @@ bool Socket::getOption(int level, int option, void* result, size_t* len) {
     return true;
 }
 
+// 调用setsockopt
 bool Socket::setOption(int level, int option, const void* result, size_t len) {
     int rt = setsockopt(m_sock, level, option, result, (socklen_t)len);
     if (rt) {
@@ -121,6 +125,7 @@ Socket::ptr Socket::accept() {
     return nullptr;
 }
 
+// 初始化Socket以及FdCtx
 bool Socket::init(int sock) {
     FdCtx::ptr ctx = FdMgr::GetInstance()->get(sock);
     if (ctx && ctx->isSocket() && !ctx->isClosed()) {
@@ -248,10 +253,12 @@ int Socket::sendTo(const iovec* buffers, size_t length, const Address::ptr to, i
         memset(&msg, 0, sizeof(msg));
         msg.msg_iov = (iovec*)buffers;
         msg.msg_iovlen = length;
+        // 在非连接的UDP中，发送者要指定对方地址端口，接受方用于的到数据来源，如果不需要的话可以设置为NULL
         msg.msg_name = (void*)to->getAddr();
         msg.msg_namelen = to->getAddrLen();
         return ::sendmsg(m_sock, &msg, flags);
     }
+    return -1;
 }
 
 int Socket::recv(void* buffer, size_t length, int flags) {
@@ -272,6 +279,7 @@ int Socket::recv(iovec* buffers, size_t length, int flags) {
     return -1;
 }
 
+// 使用buffer
 int Socket::recvFrom(void* buffer, size_t length, Address::ptr from, int flags) {
     if (isConnected()) {
         socklen_t len = from->getAddrLen();
@@ -280,6 +288,7 @@ int Socket::recvFrom(void* buffer, size_t length, Address::ptr from, int flags) 
     return -1;
 }
 
+// 使用iovec
 int Socket::recvFrom(iovec* buffers, size_t length, Address::ptr from, int flags) {
     if (isConnected()) {
         msghdr msg;
@@ -290,13 +299,15 @@ int Socket::recvFrom(iovec* buffers, size_t length, Address::ptr from, int flags
         msg.msg_namelen = from->getAddrLen();
         return ::recvmsg(m_sock, &msg, flags);
     }
+    return -1;
 }
 
+// 获取socket绑定的对端地址
 Address::ptr Socket::getRemoteAddress() {
     if (m_remoteAddress) {
         return m_remoteAddress;
     }
-
+    // 没有则新建一个
     Address::ptr result;
     switch(m_family) {
         case AF_INET:
@@ -318,6 +329,7 @@ Address::ptr Socket::getRemoteAddress() {
             << " errno = " << errno << " errstr = " << strerror(errno);
         return Address::ptr(new UnknownAddress(m_family));
     }
+    // 如果为unix套接字还需要设置长度
     if (m_family == AF_UNIX) {
         UnixAddress::ptr addr = std::dynamic_pointer_cast<UnixAddress>(result);
         addr->setAddrLen(addrlen);
@@ -326,6 +338,7 @@ Address::ptr Socket::getRemoteAddress() {
     return m_remoteAddress;
 }
 
+// 获取socket绑定的本端地址
 Address::ptr Socket::getLocalAddress() {
     if (m_localAddress) {
         return m_localAddress;
@@ -364,6 +377,7 @@ bool Socket::isValid() const {
     return m_sock != -1;
 }
 
+// 返回套接字的上一个错误代码
 int Socket::getError() {
     int error = 0;
     size_t len = sizeof(error);
@@ -373,6 +387,7 @@ int Socket::getError() {
     return error;
 }
 
+// 将Socket输出到流中
 std::ostream& Socket::dump(std::ostream& os) const {
     os << "[Socket sock = " << m_sock
        << " is_connected = " << m_isConnected
@@ -407,12 +422,15 @@ bool Socket::cancelAll() {
 
 void Socket::initSock() {
     int val = 1;
+    // 允许套接字绑定到已在使用的地址和端口
     setOption(SOL_SOCKET, SO_REUSEADDR, val);
+    // 如果为tcp则禁用nagle算法
     if (m_type == SOCK_STREAM) {
         setOption(IPPROTO_TCP, TCP_NODELAY, val);
     }
 }
 
+// 新建一个socket
 void Socket::newSock() {
     m_sock = socket(m_family, m_type, m_protocol);
     if (SYLAR_LICKLY(m_sock != -1)) {
