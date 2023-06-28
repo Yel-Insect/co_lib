@@ -273,6 +273,102 @@ hook.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/hook.cc.s
 .PHONY : hook.cc.s
 
+http.o: http.cc.o
+.PHONY : http.o
+
+# target to build an object file
+http.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/http.cc.o
+.PHONY : http.cc.o
+
+http.i: http.cc.i
+.PHONY : http.i
+
+# target to preprocess a source file
+http.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/http.cc.i
+.PHONY : http.cc.i
+
+http.s: http.cc.s
+.PHONY : http.s
+
+# target to generate assembly for a file
+http.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/http.cc.s
+.PHONY : http.cc.s
+
+http/http11_parser.o: http/http11_parser.cc.o
+.PHONY : http/http11_parser.o
+
+# target to build an object file
+http/http11_parser.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/http/http11_parser.cc.o
+.PHONY : http/http11_parser.cc.o
+
+http/http11_parser.i: http/http11_parser.cc.i
+.PHONY : http/http11_parser.i
+
+# target to preprocess a source file
+http/http11_parser.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/http/http11_parser.cc.i
+.PHONY : http/http11_parser.cc.i
+
+http/http11_parser.s: http/http11_parser.cc.s
+.PHONY : http/http11_parser.s
+
+# target to generate assembly for a file
+http/http11_parser.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/http/http11_parser.cc.s
+.PHONY : http/http11_parser.cc.s
+
+http/httpclient_parser.o: http/httpclient_parser.cc.o
+.PHONY : http/httpclient_parser.o
+
+# target to build an object file
+http/httpclient_parser.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/http/httpclient_parser.cc.o
+.PHONY : http/httpclient_parser.cc.o
+
+http/httpclient_parser.i: http/httpclient_parser.cc.i
+.PHONY : http/httpclient_parser.i
+
+# target to preprocess a source file
+http/httpclient_parser.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/http/httpclient_parser.cc.i
+.PHONY : http/httpclient_parser.cc.i
+
+http/httpclient_parser.s: http/httpclient_parser.cc.s
+.PHONY : http/httpclient_parser.s
+
+# target to generate assembly for a file
+http/httpclient_parser.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/http/httpclient_parser.cc.s
+.PHONY : http/httpclient_parser.cc.s
+
+http_parser.o: http_parser.cc.o
+.PHONY : http_parser.o
+
+# target to build an object file
+http_parser.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/http_parser.cc.o
+.PHONY : http_parser.cc.o
+
+http_parser.i: http_parser.cc.i
+.PHONY : http_parser.i
+
+# target to preprocess a source file
+http_parser.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/http_parser.cc.i
+.PHONY : http_parser.cc.i
+
+http_parser.s: http_parser.cc.s
+.PHONY : http_parser.s
+
+# target to generate assembly for a file
+http_parser.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/http_parser.cc.s
+.PHONY : http_parser.cc.s
+
 iomanager.o: iomanager.cc.o
 .PHONY : iomanager.o
 
@@ -492,6 +588,18 @@ help:
 	@echo "... hook.o"
 	@echo "... hook.i"
 	@echo "... hook.s"
+	@echo "... http.o"
+	@echo "... http.i"
+	@echo "... http.s"
+	@echo "... http/http11_parser.o"
+	@echo "... http/http11_parser.i"
+	@echo "... http/http11_parser.s"
+	@echo "... http/httpclient_parser.o"
+	@echo "... http/httpclient_parser.i"
+	@echo "... http/httpclient_parser.s"
+	@echo "... http_parser.o"
+	@echo "... http_parser.i"
+	@echo "... http_parser.s"
 	@echo "... iomanager.o"
 	@echo "... iomanager.i"
 	@echo "... iomanager.s"
