@@ -444,11 +444,15 @@ void ByteArray::read(void* buf, size_t size, size_t position) const {
 }
 
 void ByteArray::setPosition(size_t v) {
-    if (v > m_size) {
+    if (v > m_capacity) {
         throw std::out_of_range("set_position out of range");
     }
     // 将当前位置指向v
     m_position = v;
+    // daikan
+    if (m_position > m_size) {
+        m_size = m_position;
+    }
     // cur指向v所在的节点
     m_cur = m_root;
     while (v > m_cur->size) {

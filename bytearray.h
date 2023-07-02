@@ -5,6 +5,7 @@
 #include <string>
 #include <sys/socket.h>
 #include <sys/types.h>
+#include <vector>
 
 namespace sylar {
 

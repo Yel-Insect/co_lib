@@ -369,6 +369,30 @@ http_parser.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/http_parser.cc.s
 .PHONY : http_parser.cc.s
 
+http_session.o: http_session.cc.o
+.PHONY : http_session.o
+
+# target to build an object file
+http_session.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/http_session.cc.o
+.PHONY : http_session.cc.o
+
+http_session.i: http_session.cc.i
+.PHONY : http_session.i
+
+# target to preprocess a source file
+http_session.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/http_session.cc.i
+.PHONY : http_session.cc.i
+
+http_session.s: http_session.cc.s
+.PHONY : http_session.s
+
+# target to generate assembly for a file
+http_session.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/http_session.cc.s
+.PHONY : http_session.cc.s
+
 iomanager.o: iomanager.cc.o
 .PHONY : iomanager.o
 
@@ -489,6 +513,78 @@ socket.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/socket.cc.s
 .PHONY : socket.cc.s
 
+socket_stream.o: socket_stream.cc.o
+.PHONY : socket_stream.o
+
+# target to build an object file
+socket_stream.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/socket_stream.cc.o
+.PHONY : socket_stream.cc.o
+
+socket_stream.i: socket_stream.cc.i
+.PHONY : socket_stream.i
+
+# target to preprocess a source file
+socket_stream.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/socket_stream.cc.i
+.PHONY : socket_stream.cc.i
+
+socket_stream.s: socket_stream.cc.s
+.PHONY : socket_stream.s
+
+# target to generate assembly for a file
+socket_stream.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/socket_stream.cc.s
+.PHONY : socket_stream.cc.s
+
+stream.o: stream.cc.o
+.PHONY : stream.o
+
+# target to build an object file
+stream.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/stream.cc.o
+.PHONY : stream.cc.o
+
+stream.i: stream.cc.i
+.PHONY : stream.i
+
+# target to preprocess a source file
+stream.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/stream.cc.i
+.PHONY : stream.cc.i
+
+stream.s: stream.cc.s
+.PHONY : stream.s
+
+# target to generate assembly for a file
+stream.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/stream.cc.s
+.PHONY : stream.cc.s
+
+tcp_server.o: tcp_server.cc.o
+.PHONY : tcp_server.o
+
+# target to build an object file
+tcp_server.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/tcp_server.cc.o
+.PHONY : tcp_server.cc.o
+
+tcp_server.i: tcp_server.cc.i
+.PHONY : tcp_server.i
+
+# target to preprocess a source file
+tcp_server.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/tcp_server.cc.i
+.PHONY : tcp_server.cc.i
+
+tcp_server.s: tcp_server.cc.s
+.PHONY : tcp_server.s
+
+# target to generate assembly for a file
+tcp_server.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/tcp_server.cc.s
+.PHONY : tcp_server.cc.s
+
 thread.o: thread.cc.o
 .PHONY : thread.o
 
@@ -600,6 +696,9 @@ help:
 	@echo "... http_parser.o"
 	@echo "... http_parser.i"
 	@echo "... http_parser.s"
+	@echo "... http_session.o"
+	@echo "... http_session.i"
+	@echo "... http_session.s"
 	@echo "... iomanager.o"
 	@echo "... iomanager.i"
 	@echo "... iomanager.s"
@@ -615,6 +714,15 @@ help:
 	@echo "... socket.o"
 	@echo "... socket.i"
 	@echo "... socket.s"
+	@echo "... socket_stream.o"
+	@echo "... socket_stream.i"
+	@echo "... socket_stream.s"
+	@echo "... stream.o"
+	@echo "... stream.i"
+	@echo "... stream.s"
+	@echo "... tcp_server.o"
+	@echo "... tcp_server.i"
+	@echo "... tcp_server.s"
 	@echo "... thread.o"
 	@echo "... thread.i"
 	@echo "... thread.s"

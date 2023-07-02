@@ -206,7 +206,7 @@ int Address::getFamily() const {
 }
 
 // 将ip转为字符串
-std::string Address::toString() {
+std::string Address::toString() const {
     std::stringstream ss;
     insert(ss);
     return ss.str();
@@ -563,6 +563,10 @@ socklen_t UnknownAddress::getAddrLen() const {
 std::ostream& UnknownAddress::insert(std::ostream& os) const {
     os << "[UnknowAddress family = " << m_addr.sa_family << "]";
     return os;
+}
+
+std::ostream& operator<<(std::ostream& os, const Address& addr) {
+    return addr.insert(os);
 }
 
 }
