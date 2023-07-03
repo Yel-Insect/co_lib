@@ -369,6 +369,30 @@ http_parser.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/http_parser.cc.s
 .PHONY : http_parser.cc.s
 
+http_server.o: http_server.cc.o
+.PHONY : http_server.o
+
+# target to build an object file
+http_server.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/http_server.cc.o
+.PHONY : http_server.cc.o
+
+http_server.i: http_server.cc.i
+.PHONY : http_server.i
+
+# target to preprocess a source file
+http_server.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/http_server.cc.i
+.PHONY : http_server.cc.i
+
+http_server.s: http_server.cc.s
+.PHONY : http_server.s
+
+# target to generate assembly for a file
+http_server.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/http_server.cc.s
+.PHONY : http_server.cc.s
+
 http_session.o: http_session.cc.o
 .PHONY : http_session.o
 
@@ -488,6 +512,30 @@ scheduler.s: scheduler.cc.s
 scheduler.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/scheduler.cc.s
 .PHONY : scheduler.cc.s
+
+servlet.o: servlet.cc.o
+.PHONY : servlet.o
+
+# target to build an object file
+servlet.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/servlet.cc.o
+.PHONY : servlet.cc.o
+
+servlet.i: servlet.cc.i
+.PHONY : servlet.i
+
+# target to preprocess a source file
+servlet.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/servlet.cc.i
+.PHONY : servlet.cc.i
+
+servlet.s: servlet.cc.s
+.PHONY : servlet.s
+
+# target to generate assembly for a file
+servlet.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/servlet.cc.s
+.PHONY : servlet.cc.s
 
 socket.o: socket.cc.o
 .PHONY : socket.o
@@ -696,6 +744,9 @@ help:
 	@echo "... http_parser.o"
 	@echo "... http_parser.i"
 	@echo "... http_parser.s"
+	@echo "... http_server.o"
+	@echo "... http_server.i"
+	@echo "... http_server.s"
 	@echo "... http_session.o"
 	@echo "... http_session.i"
 	@echo "... http_session.s"
@@ -711,6 +762,9 @@ help:
 	@echo "... scheduler.o"
 	@echo "... scheduler.i"
 	@echo "... scheduler.s"
+	@echo "... servlet.o"
+	@echo "... servlet.i"
+	@echo "... servlet.s"
 	@echo "... socket.o"
 	@echo "... socket.i"
 	@echo "... socket.s"

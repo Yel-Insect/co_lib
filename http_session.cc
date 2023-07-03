@@ -9,9 +9,11 @@ HttpSession::HttpSession(Socket::ptr sock, bool owner)
     : SocketStream(sock, owner) {
 }
 
+// 接收报文
 HttpRequest::ptr HttpSession::recvRequest() {
     HttpRequestParser::ptr parser(new HttpRequestParser);
     uint64_t buff_size = HttpRequestParser::GetHttpRequestBufferSize();
+    //buff_size = 150;
     std::shared_ptr<char> buffer(new char[buff_size], [](char* ptr) {
         delete[] ptr;
     });
@@ -56,6 +58,7 @@ HttpRequest::ptr HttpSession::recvRequest() {
     return parser->getData();
 }
 
+// 发送报文
 int HttpSession::sendResponse(HttpResponse::ptr rsp) {
     std::stringstream ss;
     ss << *rsp;

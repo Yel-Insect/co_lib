@@ -807,6 +807,7 @@ CMakeFiles/main.dir/main.cc.o: \
  /home/beautiful/桌面/server/sylar/scheduler.h \
  /home/beautiful/桌面/server/sylar/iomanager.h \
  /home/beautiful/桌面/server/sylar/timer.h \
+ /home/beautiful/桌面/server/sylar/http_server.h \
  /home/beautiful/桌面/server/sylar/tcp_server.h \
  /home/beautiful/桌面/server/sylar/address.h \
  /usr/include/x86_64-linux-gnu/sys/socket.h \
@@ -828,4 +829,9 @@ CMakeFiles/main.dir/main.cc.o: \
  /usr/include/x86_64-linux-gnu/sys/un.h /usr/include/arpa/inet.h \
  /usr/include/netinet/in.h /usr/include/x86_64-linux-gnu/bits/in.h \
  /home/beautiful/桌面/server/sylar/socket.h \
- /home/beautiful/桌面/server/sylar/bytearray.h
+ /home/beautiful/桌面/server/sylar/http_session.h \
+ /home/beautiful/桌面/server/sylar/socket_stream.h \
+ /home/beautiful/桌面/server/sylar/stream.h \
+ /home/beautiful/桌面/server/sylar/bytearray.h \
+ /home/beautiful/桌面/server/sylar/http.h \
+ /home/beautiful/桌面/server/sylar/servlet.h
