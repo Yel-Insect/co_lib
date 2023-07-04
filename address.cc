@@ -100,7 +100,7 @@ Address::ptr Address::LookupAny(const std::string& host, int family, int type, i
 }
 
 // 略显粗暴的取任意一个IPAddress
-IPAddress::ptr Address::LookupAnyIPAdress(const std::string& host, int family, int type, int protocol) {
+IPAddress::ptr Address::LookupAnyIPAddress(const std::string& host, int family, int type, int protocol) {
     std::vector<Address::ptr> result;
     if (Lookup(result, host, family, type, protocol)) {
         for (auto& i : result) {

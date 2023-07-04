@@ -807,9 +807,10 @@ CMakeFiles/main.dir/main.cc.o: \
  /home/beautiful/桌面/server/sylar/scheduler.h \
  /home/beautiful/桌面/server/sylar/iomanager.h \
  /home/beautiful/桌面/server/sylar/timer.h \
- /home/beautiful/桌面/server/sylar/http_server.h \
- /home/beautiful/桌面/server/sylar/tcp_server.h \
- /home/beautiful/桌面/server/sylar/address.h \
+ /home/beautiful/桌面/server/sylar/http_connection.h \
+ /home/beautiful/桌面/server/sylar/socket_stream.h \
+ /home/beautiful/桌面/server/sylar/stream.h \
+ /home/beautiful/桌面/server/sylar/bytearray.h \
  /usr/include/x86_64-linux-gnu/sys/socket.h \
  /usr/include/x86_64-linux-gnu/bits/types/struct_iovec.h \
  /usr/include/x86_64-linux-gnu/bits/socket.h \
@@ -826,12 +827,9 @@ CMakeFiles/main.dir/main.cc.o: \
  /usr/include/x86_64-linux-gnu/asm/sockios.h \
  /usr/include/asm-generic/sockios.h \
  /usr/include/x86_64-linux-gnu/bits/types/struct_osockaddr.h \
+ /home/beautiful/桌面/server/sylar/socket.h \
+ /home/beautiful/桌面/server/sylar/address.h \
  /usr/include/x86_64-linux-gnu/sys/un.h /usr/include/arpa/inet.h \
  /usr/include/netinet/in.h /usr/include/x86_64-linux-gnu/bits/in.h \
- /home/beautiful/桌面/server/sylar/socket.h \
- /home/beautiful/桌面/server/sylar/http_session.h \
- /home/beautiful/桌面/server/sylar/socket_stream.h \
- /home/beautiful/桌面/server/sylar/stream.h \
- /home/beautiful/桌面/server/sylar/bytearray.h \
  /home/beautiful/桌面/server/sylar/http.h \
- /home/beautiful/桌面/server/sylar/servlet.h
+ /home/beautiful/桌面/server/sylar/uri.h

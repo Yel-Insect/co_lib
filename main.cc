@@ -1,36 +1,18 @@
 #include <iostream>
 #include "sylar.h"
 #include "iomanager.h"
-#include "http_server.h"
-#include "servlet.h"
-
+#include "http_connection.h"
+#include "uri.h"
 
 
 static sylar::Logger::ptr g_logger = SYLAR_LOG_ROOT();
 
-void run() {
-	sylar::http::HttpServer::ptr server(new sylar::http::HttpServer);
-	sylar::Address::ptr addr = sylar::Address::LookupAnyIPAdress("0.0.0.0:8020");
-	while (!server->bind(addr)) {
-		sleep(2);
-	}
-	auto sd = server->getServletDispatch();
-	sd->addServlet("/xx", [](sylar::http::HttpRequest::ptr req
-				, sylar::http::HttpResponse::ptr rsp
-				, sylar::http::HttpSession::ptr session) {
-			rsp->setBody(req->toString());
-			return 0;
-		});
-	sd->addGloServlet("/*", [](sylar::http::HttpRequest::ptr req
-				, sylar::http::HttpResponse::ptr rsp
-				, sylar::http::HttpSession::ptr session) {
-			rsp->setBody("Glob:\r\n" + req->toString());
-			return 0;
-		});
-	server->start();
-}
+
 
 int main(int argc, char** argv) {
-	sylar::IOManager iom(2);
-	iom.schedule(run);
+	sylar::Uri::ptr uri = sylar::Uri::Create("http://admin@www.sylar.top/test/中文/uri?id=100&name=sylar&vv=中文#frg中文");
+	std::cout << uri->toString() << std::endl;
+	auto addr = uri->createAddress();
+	std::cout << *addr << std::endl;
+	return 0;
  }

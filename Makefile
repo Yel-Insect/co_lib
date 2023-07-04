@@ -345,6 +345,30 @@ http/httpclient_parser.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/http/httpclient_parser.cc.s
 .PHONY : http/httpclient_parser.cc.s
 
+http_connection.o: http_connection.cc.o
+.PHONY : http_connection.o
+
+# target to build an object file
+http_connection.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/http_connection.cc.o
+.PHONY : http_connection.cc.o
+
+http_connection.i: http_connection.cc.i
+.PHONY : http_connection.i
+
+# target to preprocess a source file
+http_connection.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/http_connection.cc.i
+.PHONY : http_connection.cc.i
+
+http_connection.s: http_connection.cc.s
+.PHONY : http_connection.s
+
+# target to generate assembly for a file
+http_connection.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/http_connection.cc.s
+.PHONY : http_connection.cc.s
+
 http_parser.o: http_parser.cc.o
 .PHONY : http_parser.o
 
@@ -681,6 +705,30 @@ timer.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/timer.cc.s
 .PHONY : timer.cc.s
 
+uri.o: uri.cc.o
+.PHONY : uri.o
+
+# target to build an object file
+uri.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/uri.cc.o
+.PHONY : uri.cc.o
+
+uri.i: uri.cc.i
+.PHONY : uri.i
+
+# target to preprocess a source file
+uri.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/uri.cc.i
+.PHONY : uri.cc.i
+
+uri.s: uri.cc.s
+.PHONY : uri.s
+
+# target to generate assembly for a file
+uri.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/uri.cc.s
+.PHONY : uri.cc.s
+
 util.o: util.cc.o
 .PHONY : util.o
 
@@ -741,6 +789,9 @@ help:
 	@echo "... http/httpclient_parser.o"
 	@echo "... http/httpclient_parser.i"
 	@echo "... http/httpclient_parser.s"
+	@echo "... http_connection.o"
+	@echo "... http_connection.i"
+	@echo "... http_connection.s"
 	@echo "... http_parser.o"
 	@echo "... http_parser.i"
 	@echo "... http_parser.s"
@@ -783,6 +834,9 @@ help:
 	@echo "... timer.o"
 	@echo "... timer.i"
 	@echo "... timer.s"
+	@echo "... uri.o"
+	@echo "... uri.i"
+	@echo "... uri.s"
 	@echo "... util.o"
 	@echo "... util.i"
 	@echo "... util.s"

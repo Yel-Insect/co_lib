@@ -767,4 +767,22 @@ CMakeFiles/main.dir/http_session.cc.o: \
  /home/beautiful/桌面/server/sylar/http_parser.h \
  /home/beautiful/桌面/server/sylar/http/http11_parser.h \
  /home/beautiful/桌面/server/sylar/http/http11_common.h \
- /home/beautiful/桌面/server/sylar/http/httpclient_parser.h
+ /home/beautiful/桌面/server/sylar/http/httpclient_parser.h \
+ /home/beautiful/桌面/server/sylar/log.h /usr/include/c++/11/list \
+ /usr/include/c++/11/bits/stl_list.h /usr/include/c++/11/bits/list.tcc \
+ /usr/include/c++/11/fstream \
+ /usr/include/x86_64-linux-gnu/c++/11/bits/basic_file.h \
+ /usr/include/x86_64-linux-gnu/c++/11/bits/c++io.h \
+ /usr/include/c++/11/bits/fstream.tcc \
+ /home/beautiful/桌面/server/sylar/util.h \
+ /usr/include/x86_64-linux-gnu/sys/syscall.h \
+ /usr/include/x86_64-linux-gnu/asm/unistd.h \
+ /usr/include/x86_64-linux-gnu/asm/unistd_64.h \
+ /usr/include/x86_64-linux-gnu/bits/syscall.h \
+ /home/beautiful/桌面/server/sylar/singleton.h \
+ /home/beautiful/桌面/server/sylar/thread.h /usr/include/c++/11/thread \
+ /usr/include/c++/11/bits/std_thread.h \
+ /usr/include/c++/11/bits/this_thread_sleep.h /usr/include/c++/11/chrono \
+ /usr/include/c++/11/ratio /usr/include/c++/11/bits/parse_numbers.h \
+ /usr/include/semaphore.h /usr/include/x86_64-linux-gnu/bits/semaphore.h \
+ /usr/include/c++/11/atomic

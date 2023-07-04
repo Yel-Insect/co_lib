@@ -17,6 +17,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/beautiful/桌面/server/sylar/http.cc" "CMakeFiles/main.dir/http.cc.o" "gcc" "CMakeFiles/main.dir/http.cc.o.d"
   "/home/beautiful/桌面/server/sylar/http/http11_parser.cc" "CMakeFiles/main.dir/http/http11_parser.cc.o" "gcc" "CMakeFiles/main.dir/http/http11_parser.cc.o.d"
   "/home/beautiful/桌面/server/sylar/http/httpclient_parser.cc" "CMakeFiles/main.dir/http/httpclient_parser.cc.o" "gcc" "CMakeFiles/main.dir/http/httpclient_parser.cc.o.d"
+  "/home/beautiful/桌面/server/sylar/http_connection.cc" "CMakeFiles/main.dir/http_connection.cc.o" "gcc" "CMakeFiles/main.dir/http_connection.cc.o.d"
   "/home/beautiful/桌面/server/sylar/http_parser.cc" "CMakeFiles/main.dir/http_parser.cc.o" "gcc" "CMakeFiles/main.dir/http_parser.cc.o.d"
   "/home/beautiful/桌面/server/sylar/http_server.cc" "CMakeFiles/main.dir/http_server.cc.o" "gcc" "CMakeFiles/main.dir/http_server.cc.o.d"
   "/home/beautiful/桌面/server/sylar/http_session.cc" "CMakeFiles/main.dir/http_session.cc.o" "gcc" "CMakeFiles/main.dir/http_session.cc.o.d"
@@ -31,6 +32,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/beautiful/桌面/server/sylar/tcp_server.cc" "CMakeFiles/main.dir/tcp_server.cc.o" "gcc" "CMakeFiles/main.dir/tcp_server.cc.o.d"
   "/home/beautiful/桌面/server/sylar/thread.cc" "CMakeFiles/main.dir/thread.cc.o" "gcc" "CMakeFiles/main.dir/thread.cc.o.d"
   "/home/beautiful/桌面/server/sylar/timer.cc" "CMakeFiles/main.dir/timer.cc.o" "gcc" "CMakeFiles/main.dir/timer.cc.o.d"
+  "/home/beautiful/桌面/server/sylar/uri.cc" "CMakeFiles/main.dir/uri.cc.o" "gcc" "CMakeFiles/main.dir/uri.cc.o.d"
   "/home/beautiful/桌面/server/sylar/util.cc" "CMakeFiles/main.dir/util.cc.o" "gcc" "CMakeFiles/main.dir/util.cc.o.d"
   )
 
