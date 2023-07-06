@@ -832,4 +832,8 @@ CMakeFiles/main.dir/main.cc.o: \
  /usr/include/x86_64-linux-gnu/sys/un.h /usr/include/arpa/inet.h \
  /usr/include/netinet/in.h /usr/include/x86_64-linux-gnu/bits/in.h \
  /home/beautiful/桌面/server/sylar/http.h \
- /home/beautiful/桌面/server/sylar/uri.h
+ /home/beautiful/桌面/server/sylar/uri.h \
+ /home/beautiful/桌面/server/sylar/http_server.h \
+ /home/beautiful/桌面/server/sylar/tcp_server.h \
+ /home/beautiful/桌面/server/sylar/http_session.h \
+ /home/beautiful/桌面/server/sylar/servlet.h

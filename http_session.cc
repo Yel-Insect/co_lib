@@ -64,13 +64,15 @@ HttpRequest::ptr HttpSession::recvRequest() {
             }
         }
         parser->getData()->setBody(body);
-        std::string keep_alive = parser->getData()->getHeader("Connection");
-        if (!strcasecmp(keep_alive.c_str(), "keep-alive")) {
-            parser->getData()->setClose(false);
-        }
+    }
+    std::string keep_alive = parser->getData()->getHeader("Connection");
+    if (!strcasecmp(keep_alive.c_str(), "keep-alive")) {
+        parser->getData()->setClose(false);
     }
     return parser->getData();
 }
+
+
 
 // 发送报文
 int HttpSession::sendResponse(HttpResponse::ptr rsp) {

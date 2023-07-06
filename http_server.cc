@@ -19,21 +19,26 @@ void HttpServer::handleClient(Socket::ptr client) {
     do {
         auto req = session->recvRequest();
         if (!req) {
-            SYLAR_LOG_WARN(g_logger) << "recv http request fail, errno = "
+            SYLAR_LOG_DEBUG(g_logger) << "recv http request fail, errno = "
                 << errno << " errstr = " << strerror(errno)
-                << " client: " << *client;
+                << " client: " << *client << " keep_alive = " << m_isKeepalive;
             break;
         }
+        // SYLAR_LOG_DEBUG(g_logger) << *client << " keep_alive = " << m_isKeepalive;
+        // HttpResponse::ptr rsp(new HttpResponse(req->getVersion(), req->isClose() || !m_isKeepalive));
+        // m_dispatch->handle(req, rsp, session);
 
-        HttpResponse::ptr rsp(new HttpResponse(req->getVersion(), req->isClose() || !m_isKeepalive));
+        // session->sendResponse(rsp);
+        HttpResponse::ptr rsp(new HttpResponse(req->getVersion()
+                            ,req->isClose() || !m_isKeepalive));
+        rsp->setHeader("Server", getName());
         m_dispatch->handle(req, rsp, session);
-        // rsp->setBody("Fuck YZT");
-
-        // SYLAR_LOG_INFO(g_logger) << "request: " << std::endl << *req;
-        // SYLAR_LOG_INFO(g_logger) << "response: " << std::endl << *rsp;
-
         session->sendResponse(rsp);
-    } while (m_isKeepalive);
+
+        if(!m_isKeepalive || req->isClose()) {
+            break;
+        }
+    } while (true);
     session->close();
 }
 

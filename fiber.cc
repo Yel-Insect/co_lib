@@ -49,7 +49,7 @@ Fiber::Fiber() {
 
     ++s_fiber_count;
 
-    SYLAR_LOG_DEBUG(g_logger) << "Fiber::Fiber";
+    // SYLAR_LOG_DEBUG(g_logger) << "Fiber::Fiber";
 }
 
 Fiber::Fiber(std::function<void()> cb, size_t stacksize, bool use_caller) 
@@ -82,7 +82,7 @@ Fiber::Fiber(std::function<void()> cb, size_t stacksize, bool use_caller)
         而在主线程里主协程与run协程是分开的，需要区分，否则就会与自己交换
     */
 
-    SYLAR_LOG_DEBUG(g_logger) << "Fiber::Fiber id = " << m_id;
+    // SYLAR_LOG_DEBUG(g_logger) << "Fiber::Fiber id = " << m_id;
 }
 
 Fiber::~Fiber() {
@@ -100,7 +100,7 @@ Fiber::~Fiber() {
         }
     }
 
-    SYLAR_LOG_DEBUG(g_logger) << "Fiber::~Fiber id = " << m_id;
+    // SYLAR_LOG_DEBUG(g_logger) << "Fiber::~Fiber id = " << m_id;
 }
 
 void Fiber::reset(std::function<void()> cb) {
@@ -178,13 +178,15 @@ Fiber::ptr Fiber::GetThis() {
 
 void Fiber::YieldToReady() {
     Fiber::ptr cur = GetThis();
+    SYLAR_ASSERT(cur->m_state == EXEC);
     cur->m_state = READY;
     cur->swapOut();
 }
 
 void Fiber::YieldToHold() {
     Fiber::ptr cur = GetThis();
-    cur->m_state = HOLD;
+    SYLAR_ASSERT(cur->m_state == EXEC);
+    // cur->m_state = HOLD;
     cur->swapOut();
 }
 

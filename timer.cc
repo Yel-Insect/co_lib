@@ -156,7 +156,10 @@ void TimerManager::listExpiredCb(std::vector<std::function<void()>>& cbs) {
         }
     }
     RWMutexType::WriteLock lock(m_mutex);
-
+    // 此处为个人修改
+    if (m_timers.empty()) {
+        return ;
+    }
     bool rollover = detectClockRollover(now_ms);
     // 如果没有调系统时间且还没到下一个定时器的执行时间
     if (!rollover && ((*m_timers.begin())->m_next > now_ms)) {

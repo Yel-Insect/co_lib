@@ -113,6 +113,8 @@ void on_request_version(void* data, const char* at, size_t length) {
     uint8_t v = 0;
     if (strncmp(at, "HTTP/1.1", length) == 0) {
         v = 0x11;
+    } else if(strncmp(at, "HTTP/1.0", length) == 0) {
+        v = 0x10;
     } else {
         SYLAR_LOG_WARN(g_logger) << "invalid http request version: "
             << std::string(at, length);

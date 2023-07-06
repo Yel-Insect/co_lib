@@ -10358,7 +10358,11 @@ CMakeFiles/main.dir/main.cc.o: main.cc \
   /usr/include/netinet/in.h \
   /usr/include/x86_64-linux-gnu/bits/in.h \
   http.h \
-  uri.h
+  uri.h \
+  http_server.h \
+  tcp_server.h \
+  http_session.h \
+  servlet.h
 
 CMakeFiles/main.dir/scheduler.cc.o: scheduler.cc \
   /usr/include/stdc-predef.h \
