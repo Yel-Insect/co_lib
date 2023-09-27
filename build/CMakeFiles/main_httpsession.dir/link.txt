@@ -1,1 +1,0 @@
-/usr/bin/c++ -g CMakeFiles/main_httpsession.dir/test/main_httpsession.cc.o -o ../bin/main_httpsession  liblib.a -lyaml-cpp 

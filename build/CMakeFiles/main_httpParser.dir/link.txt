@@ -1,1 +1,0 @@
-/usr/bin/c++ -g CMakeFiles/main_httpParser.dir/test/main_httpParser.cc.o -o ../bin/main_httpParser  liblib.a -lyaml-cpp 

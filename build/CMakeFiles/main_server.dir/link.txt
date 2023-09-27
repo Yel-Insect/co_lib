@@ -1,1 +1,0 @@
-/usr/bin/c++ -g CMakeFiles/main_server.dir/test/main_server.cc.o -o ../bin/main_server  liblib.a -lyaml-cpp 
