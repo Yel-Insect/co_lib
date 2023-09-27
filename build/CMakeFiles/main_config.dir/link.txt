@@ -1,0 +1,1 @@
+/usr/bin/c++ -g CMakeFiles/main_config.dir/test/main_config.cc.o -o ../bin/main_config  liblib.a -lyaml-cpp 

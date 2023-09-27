@@ -13,3 +13,16 @@ logs:
       - type: FileLogAppender
         file: system.txt
       - type: StdoutLogAppender
+
+hh:
+    name: hcz
+    job: c++
+
+mp: {name: Astron, sex: female}
+
+vec:
+    - 1
+    - 2
+    - 3
+
+

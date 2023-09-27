@@ -1,0 +1,1 @@
+/usr/bin/c++ -g CMakeFiles/main_hook.dir/test/main_hook.cc.o -o ../bin/main_hook  liblib.a -lyaml-cpp 

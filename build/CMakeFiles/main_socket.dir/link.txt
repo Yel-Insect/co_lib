@@ -1,0 +1,1 @@
+/usr/bin/c++ -g CMakeFiles/main_socket.dir/test/main_socket.cc.o -o ../bin/main_socket  liblib.a -lyaml-cpp 

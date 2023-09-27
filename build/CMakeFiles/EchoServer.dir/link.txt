@@ -1,0 +1,1 @@
+/usr/bin/c++ -g CMakeFiles/EchoServer.dir/test/EchoServer.cc.o -o ../bin/EchoServer  liblib.a -lyaml-cpp 
